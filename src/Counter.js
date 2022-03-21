@@ -1,10 +1,18 @@
 import React from "react";
+import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+// import {
+//   COUNTER_INCREMENT,
+//   COUNTER_DECREMENT,
+//   COUNTER_INCREMENT_BY_AMOUNT,
+// } from "./actionType";
+
+// import * as CounterActionCreators from "./actionCreator";
 import {
-  COUNTER_INCREMENT,
-  COUNTER_DECREMENT,
-  COUNTER_INCREMENT_BY_AMOUNT,
-} from "./actionType";
+  increment as incrementAction,
+  decrement as decrementAction,
+  incrementByAmount as incrementByAmountAction,
+} from "./actionCreator";
 class Counter extends React.Component {
   constructor() {
     super();
@@ -67,13 +75,38 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
+  /* #1 mapDispatchToProps without action creator */
+  // const increment = () => dispatch({ type: COUNTER_INCREMENT });
+  // const decrement = () => dispatch({ type: COUNTER_DECREMENT });
+  // const incrementByAmount = (amount) =>
+  //   dispatch({ type: COUNTER_INCREMENT_BY_AMOUNT, amount });
+
+  /* #2 mapDispatchToProps with action creator */
+  // const increment = () => dispatch(incrementAction());
+  // const decrement = () => dispatch(decrementAction());
+  // const incrementByAmount = (amount) =>
+  //   dispatch(incrementByAmountAction(amount));
+
+  /* #3 mapDispatchToProps with action creator and bindActionCreators */
+  // const { increment, decrement, incrementByAmount } = bindActionCreators(
+  //   CounterActionCreators,
+  //   dispatch
+  // );
+
+  /* #3.1 mapDispatchToProps with action creator and bindActionCreators (define each action) */
+  const { increment, decrement, incrementByAmount } = bindActionCreators(
+    {
+      increment: incrementAction,
+      decrement: decrementAction,
+      incrementByAmount: incrementByAmountAction,
+    },
+    dispatch
+  );
+
   return {
-    increment: () => dispatch({ type: COUNTER_INCREMENT }),
-    decrement: () => dispatch({ type: COUNTER_DECREMENT }),
-    incrementByAmount: (amount) =>
-      dispatch({ type: COUNTER_INCREMENT_BY_AMOUNT, amount }),
-    // incrementAsync: () => dispatch(),
-    // selectCount: () => dispatch(),
+    increment,
+    decrement,
+    incrementByAmount,
   };
 };
 
