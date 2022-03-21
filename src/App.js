@@ -1,5 +1,11 @@
+import React from "react";
+import Counter from "./Counter";
 function App() {
-  return <div>Example App</div>;
+  return (
+    <div>
+      <Counter />
+    </div>
+  );
 }
 
 export default App;
