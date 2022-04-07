@@ -69,8 +69,9 @@ class Counter extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+  const { count } = state.counter;
   return {
-    count: state.count,
+    count,
   };
 };
 
