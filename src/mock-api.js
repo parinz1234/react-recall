@@ -21,7 +21,11 @@ export const getBookById = (id) => {
 export const createBook = (book) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      books.push(book);
+      books.push({
+        id: books.length + 1,
+        name: book.name,
+        author: book.author,
+      });
       resolve(book);
     }, 3000);
   });
