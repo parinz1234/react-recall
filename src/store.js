@@ -12,7 +12,8 @@ const counterInitialState = {
 };
 
 const bookInitialState = {
-  loading: false,
+  submitLoading: false,
+  fetchLoading: false,
   books: [],
 };
 
@@ -34,13 +35,23 @@ const bookReducer = (state = bookInitialState, action) => {
     case "FETCH_BOOKS_PENDING":
       return {
         ...state,
-        loading: true,
+        fetchLoading: true,
       };
     case "FETCH_BOOKS_SUCCESS":
       return {
         ...state,
-        loading: false,
+        fetchLoading: false,
         books: action.payload,
+      };
+    case "CREATE_BOOK_PENDING":
+      return {
+        ...state,
+        submitLoading: true,
+      };
+    case "CREATE_BOOK_SUCCESS":
+      return {
+        ...state,
+        submitLoading: false,
       };
     default:
       return state;
