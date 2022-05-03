@@ -1,10 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
 import {
-  COUNTER_INCREMENT,
-  COUNTER_DECREMENT,
-  COUNTER_INCREMENT_BY_AMOUNT,
-} from "./actionType";
+  increment as incrementAction,
+  // decrement as decrementAction,
+  incrementByAmount as incrementByAmountAction,
+} from "./counterSlice";
 class Counter extends React.Component {
   constructor() {
     super();
@@ -68,12 +68,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    increment: () => dispatch({ type: COUNTER_INCREMENT }),
-    decrement: () => dispatch({ type: COUNTER_DECREMENT }),
+    increment: () => dispatch(incrementAction()),
+    decrement: () => dispatch({ type: "counter/decrement" }),
     incrementByAmount: (amount) =>
-      dispatch({ type: COUNTER_INCREMENT_BY_AMOUNT, amount }),
-    // incrementAsync: () => dispatch(),
-    // selectCount: () => dispatch(),
+      dispatch(incrementByAmountAction(Number(amount))),
   };
 };
 
